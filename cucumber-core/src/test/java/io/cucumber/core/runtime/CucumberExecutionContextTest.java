@@ -3,12 +3,8 @@ package io.cucumber.core.runtime;
 import io.cucumber.core.eventbus.EventBus;
 import io.cucumber.core.options.RuntimeOptions;
 import io.cucumber.core.options.RuntimeOptionsBuilder;
-import io.cucumber.plugin.event.Result;
-import io.cucumber.plugin.event.Status;
-import io.cucumber.plugin.event.TestCase;
-import io.cucumber.plugin.event.TestCaseFinished;
-import io.cucumber.plugin.event.TestRunFinished;
-import io.cucumber.plugin.event.TestRunStarted;
+import io.cucumber.core.plugin.StubTestCase;
+import io.cucumber.plugin.event.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
@@ -24,7 +20,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
 
 class CucumberExecutionContextTest {
 
@@ -55,7 +50,7 @@ class CucumberExecutionContextTest {
     public void rethrows_but_does_not_collect_failures_in_test_case() {
         IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> context.runTestCase(runner -> {
             try (TestCaseResultObserver r = new TestCaseResultObserver(bus)) {
-                bus.send(new TestCaseFinished(bus.getInstant(), mock(TestCase.class),
+                bus.send(new TestCaseFinished(bus.getInstant(), new StubTestCase(),
                     new Result(Status.FAILED, Duration.ZERO, failure)));
                 r.assertTestCasePassed(
                     Exception::new,
