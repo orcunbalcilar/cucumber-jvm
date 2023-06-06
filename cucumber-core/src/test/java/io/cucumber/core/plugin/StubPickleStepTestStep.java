@@ -10,10 +10,22 @@ import java.util.List;
 import java.util.UUID;
 
 class StubPickleStepTestStep implements PickleStepTestStep {
+    private final String pattern;
+    private final String stepText;
+
+    public StubPickleStepTestStep() {
+        this.pattern = null;
+        this.stepText = null;
+    }
+
+    public StubPickleStepTestStep(String pattern, String stepText) {
+        this.pattern = pattern;
+        this.stepText = stepText;
+    }
 
     @Override
     public String getPattern() {
-        return null;
+        return pattern;
     }
 
     @Override
@@ -43,7 +55,7 @@ class StubPickleStepTestStep implements PickleStepTestStep {
 
     @Override
     public String getStepText() {
-        return null;
+        return stepText;
     }
 
     @Override
