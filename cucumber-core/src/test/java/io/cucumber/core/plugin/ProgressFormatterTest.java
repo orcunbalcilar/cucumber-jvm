@@ -27,8 +27,8 @@ class ProgressFormatterTest {
     final EventBus bus = new TimeServiceEventBus(Clock.systemUTC(), UUID::randomUUID);
     final ByteArrayOutputStream out = new ByteArrayOutputStream();
     final ProgressFormatter formatter = new ProgressFormatter(out);
-    private final MockTestCase mocktestCase = new MockTestCase();
-    private final MockPickleStepTestStep mockPickleStepTestStep = new MockPickleStepTestStep();
+    private final StubTestCase mocktestCase = new StubTestCase();
+    private final StubPickleStepTestStep stubPickleStepTestStep = new StubPickleStepTestStep();
 
     @BeforeEach
     void setup() {
@@ -45,7 +45,7 @@ class ProgressFormatterTest {
     @Test
     void prints_empty_line_and_green_dot_for_passing_test_run() {
         Result result = new Result(PASSED, Duration.ZERO, null);
-        bus.send(new TestStepFinished(Instant.now(), mocktestCase, mockPickleStepTestStep, result));
+        bus.send(new TestStepFinished(Instant.now(), mocktestCase, stubPickleStepTestStep, result));
         bus.send(new TestRunFinished(Instant.now(), result));
         assertThat(out, bytes(equalToCompressingWhiteSpace(AnsiEscapes.GREEN + "." + AnsiEscapes.RESET + "\n")));
     }
@@ -53,38 +53,52 @@ class ProgressFormatterTest {
     @Test
     void print_green_dot_for_passing_step() {
         Result result = new Result(PASSED, Duration.ZERO, null);
-        bus.send(new TestStepFinished(Instant.now(), mocktestCase, mockPickleStepTestStep, result));
+        bus.send(new TestStepFinished(Instant.now(), mocktestCase, stubPickleStepTestStep, result));
         assertThat(out, bytes(equalTo(AnsiEscapes.GREEN + "." + AnsiEscapes.RESET)));
     }
 
     @Test
     void print_yellow_U_for_undefined_step() {
         Result result = new Result(UNDEFINED, Duration.ZERO, null);
-        bus.send(new TestStepFinished(Instant.now(), mocktestCase, mockPickleStepTestStep, result));
+        bus.send(new TestStepFinished(Instant.now(), mocktestCase, stubPickleStepTestStep, result));
         assertThat(out, bytes(equalTo(AnsiEscapes.YELLOW + "U" + AnsiEscapes.RESET)));
     }
 
     @Test
     void print_nothing_for_passed_hook() {
         Result result = new Result(PASSED, Duration.ZERO, null);
-        bus.send(new TestStepFinished(Instant.now(), mocktestCase, mockPickleStepTestStep, result));
+        bus.send(new TestStepFinished(Instant.now(), mocktestCase, stubPickleStepTestStep, result));
     }
 
     @Test
     void print_red_F_for_failed_step() {
         Result result = new Result(FAILED, Duration.ZERO, null);
-        bus.send(new TestStepFinished(Instant.now(), mocktestCase, mockPickleStepTestStep, result));
+        bus.send(new TestStepFinished(Instant.now(), mocktestCase, stubPickleStepTestStep, result));
         assertThat(out, bytes(equalTo(AnsiEscapes.RED + "F" + AnsiEscapes.RESET)));
     }
 
     @Test
     void print_red_F_for_failed_hook() {
         Result result = new Result(FAILED, Duration.ZERO, null);
-        bus.send(new TestStepFinished(Instant.now(), mocktestCase, mockPickleStepTestStep, result));
+        bus.send(new TestStepFinished(Instant.now(), mocktestCase, stubPickleStepTestStep, result));
         assertThat(out, bytes(equalTo(AnsiEscapes.RED + "F" + AnsiEscapes.RESET)));
     }
 
-    private class MockTestCase implements TestCase {
+    @Test
+    void print_red_F_for_failed_hook_monochrome() {
+        // Given
+        Result result = new Result(FAILED, Duration.ZERO, null);
+        formatter.setMonochrome(true);
+
+        // When
+        bus.send(new TestStepFinished(Instant.now(), mocktestCase, stubPickleStepTestStep, result));
+
+        // Then
+        assertThat(out, bytes(equalTo("F" )));
+        formatter.setMonochrome(false);
+    }
+
+    private class StubTestCase implements TestCase {
         @Override
         public Integer getLine() {
             return null;
@@ -131,7 +145,7 @@ class ProgressFormatterTest {
         }
     }
 
-    private class MockPickleStepTestStep implements PickleStepTestStep {
+    private class StubPickleStepTestStep implements PickleStepTestStep {
         @Override
         public String getPattern() {
             return null;
