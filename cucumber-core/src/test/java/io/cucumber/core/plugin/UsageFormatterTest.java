@@ -30,7 +30,7 @@ class UsageFormatterTest {
     void resultWithPassedStep() {
         OutputStream out = new ByteArrayOutputStream();
         UsageFormatter usageFormatter = new UsageFormatter(out);
-        TestStep testStep = new StubPickleStepTestStep();
+        TestStep testStep = new StubPickleStepTestStep("stepDef", "step");
         Result result = new Result(Status.PASSED, Duration.ofMillis(12345L), null);
 
         usageFormatter
@@ -49,7 +49,7 @@ class UsageFormatterTest {
     void resultWithPassedAndFailedStep() {
         OutputStream out = new ByteArrayOutputStream();
         UsageFormatter usageFormatter = new UsageFormatter(out);
-        TestStep testStep = new StubPickleStepTestStep();
+        TestStep testStep = new StubPickleStepTestStep("stepDef", "step");
 
         Result passed = new Result(Status.PASSED, Duration.ofSeconds(12345L), null);
         usageFormatter
@@ -72,7 +72,7 @@ class UsageFormatterTest {
     void resultWithZeroDuration() {
         OutputStream out = new ByteArrayOutputStream();
         UsageFormatter usageFormatter = new UsageFormatter(out);
-        TestStep testStep = new StubPickleStepTestStep();
+        TestStep testStep = new StubPickleStepTestStep("stepDef", "step");
         Result result = new Result(Status.PASSED, Duration.ZERO, null);
 
         usageFormatter
@@ -92,7 +92,7 @@ class UsageFormatterTest {
     void resultWithNullDuration() {
         OutputStream out = new ByteArrayOutputStream();
         UsageFormatter usageFormatter = new UsageFormatter(out);
-        PickleStepTestStep testStep = new StubPickleStepTestStep();
+        PickleStepTestStep testStep = new StubPickleStepTestStep("stepDef", "step");
         Result result = new Result(Status.PASSED, Duration.ZERO, null);
 
         usageFormatter
