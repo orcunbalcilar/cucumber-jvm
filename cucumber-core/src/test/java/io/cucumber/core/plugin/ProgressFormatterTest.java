@@ -94,11 +94,11 @@ class ProgressFormatterTest {
         bus.send(new TestStepFinished(Instant.now(), mocktestCase, stubPickleStepTestStep, result));
 
         // Then
-        assertThat(out, bytes(equalTo("F" )));
+        assertThat(out, bytes(equalTo("F")));
         formatter.setMonochrome(false);
     }
 
-    private class StubTestCase implements TestCase {
+    private static class StubTestCase implements TestCase {
         @Override
         public Integer getLine() {
             return null;
@@ -145,7 +145,7 @@ class ProgressFormatterTest {
         }
     }
 
-    private class StubPickleStepTestStep implements PickleStepTestStep {
+    private static class StubPickleStepTestStep implements PickleStepTestStep {
         @Override
         public String getPattern() {
             return null;
