@@ -46,7 +46,7 @@ class HookTest {
     void after_hooks_execute_before_objects_are_disposed() {
         Backend backend = mock(Backend.class);
         when(backend.getSnippet()).thenReturn(new TestSnippet());
-        ObjectFactory objectFactory = mock(ObjectFactory.class);
+        ObjectFactory objectFactory = new StubObjectFactory();
         final HookDefinition hook = mock(HookDefinition.class);
         when(hook.getLocation()).thenReturn("hook-location");
         when(hook.getTagExpression()).thenReturn("");
@@ -71,7 +71,7 @@ class HookTest {
     void hook_throws_exception_with_name_when_tag_expression_is_invalid() {
         Backend backend = mock(Backend.class);
         when(backend.getSnippet()).thenReturn(new TestSnippet());
-        ObjectFactory objectFactory = mock(ObjectFactory.class);
+        ObjectFactory objectFactory = new StubObjectFactory();
         final HookDefinition hook = mock(HookDefinition.class);
         when(hook.getLocation()).thenReturn("hook-location");
         when(hook.getTagExpression()).thenReturn("(");
@@ -90,4 +90,25 @@ class HookTest {
             is("Invalid tag expression at 'hook-location'"));
     }
 
+    private static class StubObjectFactory implements ObjectFactory {
+        @Override
+        public boolean addClass(Class<?> glueClass) {
+            return false;
+        }
+
+        @Override
+        public <T> T getInstance(Class<T> glueClass) {
+            return null;
+        }
+
+        @Override
+        public void start() {
+
+        }
+
+        @Override
+        public void stop() {
+
+        }
+    }
 }
