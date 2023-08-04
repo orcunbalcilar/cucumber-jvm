@@ -6,8 +6,20 @@ import io.cucumber.core.gherkin.Feature;
 import io.cucumber.core.gherkin.Step;
 import io.cucumber.core.runtime.TimeServiceEventBus;
 import io.cucumber.junit.PickleRunners.PickleRunner;
-import io.cucumber.plugin.event.*;
+import io.cucumber.plugin.event.Argument;
+import io.cucumber.plugin.event.Location;
+import io.cucumber.plugin.event.PickleStepTestStep;
+import io.cucumber.plugin.event.Result;
+import io.cucumber.plugin.event.SnippetsSuggestedEvent;
 import io.cucumber.plugin.event.SnippetsSuggestedEvent.Suggestion;
+import io.cucumber.plugin.event.Status;
+import io.cucumber.plugin.event.StepArgument;
+import io.cucumber.plugin.event.TestCase;
+import io.cucumber.plugin.event.TestCaseFinished;
+import io.cucumber.plugin.event.TestCaseStarted;
+import io.cucumber.plugin.event.TestStep;
+import io.cucumber.plugin.event.TestStepFinished;
+import io.cucumber.plugin.event.TestStepStarted;
 import org.junit.AssumptionViolatedException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.Description;
@@ -18,7 +30,11 @@ import org.junit.runners.model.MultipleFailureException;
 
 import java.net.URI;
 import java.time.Clock;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import static java.time.Duration.ZERO;
 import static java.time.Instant.now;
@@ -28,7 +44,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class JUnitReporterWithStepNotificationsTest {
 

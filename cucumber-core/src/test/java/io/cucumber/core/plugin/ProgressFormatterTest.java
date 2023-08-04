@@ -2,7 +2,16 @@ package io.cucumber.core.plugin;
 
 import io.cucumber.core.eventbus.EventBus;
 import io.cucumber.core.runtime.TimeServiceEventBus;
-import io.cucumber.plugin.event.*;
+import io.cucumber.plugin.event.Argument;
+import io.cucumber.plugin.event.Location;
+import io.cucumber.plugin.event.PickleStepTestStep;
+import io.cucumber.plugin.event.Result;
+import io.cucumber.plugin.event.Step;
+import io.cucumber.plugin.event.StepArgument;
+import io.cucumber.plugin.event.TestCase;
+import io.cucumber.plugin.event.TestRunFinished;
+import io.cucumber.plugin.event.TestStep;
+import io.cucumber.plugin.event.TestStepFinished;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

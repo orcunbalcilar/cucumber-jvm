@@ -1,6 +1,17 @@
 package io.cucumber.guice;
 
-import io.cucumber.core.backend.*;
+import io.cucumber.core.backend.BackendProviderService;
+import io.cucumber.core.backend.DataTableTypeDefinition;
+import io.cucumber.core.backend.DefaultDataTableCellTransformerDefinition;
+import io.cucumber.core.backend.DefaultDataTableEntryTransformerDefinition;
+import io.cucumber.core.backend.DefaultParameterTransformerDefinition;
+import io.cucumber.core.backend.DocStringTypeDefinition;
+import io.cucumber.core.backend.Glue;
+import io.cucumber.core.backend.HookDefinition;
+import io.cucumber.core.backend.ObjectFactory;
+import io.cucumber.core.backend.ParameterTypeDefinition;
+import io.cucumber.core.backend.StaticHookDefinition;
+import io.cucumber.core.backend.StepDefinition;
 import io.cucumber.guice.integration.YourInjectorSource;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +27,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GuiceBackendTest {
 

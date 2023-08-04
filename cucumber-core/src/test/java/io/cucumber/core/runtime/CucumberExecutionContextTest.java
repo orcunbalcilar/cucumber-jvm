@@ -4,7 +4,11 @@ import io.cucumber.core.eventbus.EventBus;
 import io.cucumber.core.options.RuntimeOptions;
 import io.cucumber.core.options.RuntimeOptionsBuilder;
 import io.cucumber.core.plugin.StubTestCase;
-import io.cucumber.plugin.event.*;
+import io.cucumber.plugin.event.Result;
+import io.cucumber.plugin.event.Status;
+import io.cucumber.plugin.event.TestCaseFinished;
+import io.cucumber.plugin.event.TestRunFinished;
+import io.cucumber.plugin.event.TestRunStarted;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
@@ -38,7 +42,7 @@ class CucumberExecutionContextTest {
     private final CucumberExecutionContext context = new CucumberExecutionContext(bus, exitStatus, runnerSupplier);
 
     @Test
-    public void collects_and_rethrows_failures_in_runner() {
+    void collects_and_rethrows_failures_in_runner() {
         IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> context.runTestCase(runner -> {
             throw failure;
         }));
@@ -47,7 +51,7 @@ class CucumberExecutionContextTest {
     }
 
     @Test
-    public void rethrows_but_does_not_collect_failures_in_test_case() {
+    void rethrows_but_does_not_collect_failures_in_test_case() {
         IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> context.runTestCase(runner -> {
             try (TestCaseResultObserver r = new TestCaseResultObserver(bus)) {
                 bus.send(new TestCaseFinished(bus.getInstant(), new StubTestCase(),
@@ -64,7 +68,7 @@ class CucumberExecutionContextTest {
     }
 
     @Test
-    public void emits_failures_in_events() {
+    void emits_failures_in_events() {
         List<TestRunStarted> testRunStarted = new ArrayList<>();
         List<TestRunFinished> testRunFinished = new ArrayList<>();
 

@@ -3,12 +3,7 @@ package io.cucumber.core.runtime;
 import io.cucumber.core.backend.DefaultObjectFactory;
 import io.cucumber.core.backend.ObjectFactory;
 import io.cucumber.core.backend.Options;
-import io.cucumber.core.eventbus.IncrementingUuidGenerator;
-import io.cucumber.core.eventbus.RandomUuidGenerator;
-import io.cucumber.core.eventbus.UuidGenerator;
 import io.cucumber.core.exception.CucumberException;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Supplier;

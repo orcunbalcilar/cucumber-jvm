@@ -1,7 +1,6 @@
 package io.cucumber.spring;
 
 import io.cucumber.core.backend.ObjectFactory;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 class Issue1970 {
 
     @Test
-    public void issue1970() {
+    void issue1970() {
         ObjectFactory factory = new SpringFactory();
         factory.addClass(GlueClass.class); // Add glue with Spring configuration
         factory.start();

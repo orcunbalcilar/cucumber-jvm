@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 /**
  * Testing classloader for ServiceLoader. This classloader overrides the
- * META-INF/services/<interface> file with a custom definition.
+ * META-INF/services/&lt;interface&gt; file with a custom definition.
  */
 public class ServiceLoaderTestClassLoader extends URLClassLoader {
     Class<?> metaInfInterface;
@@ -22,7 +22,7 @@ public class ServiceLoaderTestClassLoader extends URLClassLoader {
 
     /**
      * Constructs a classloader which has no
-     * META-INF/services/<metaInfInterface>.
+     * META-INF/services/&lt;metaInfInterface&gt;.
      *
      * @param metaInfInterface ServiceLoader interface
      */
@@ -31,7 +31,7 @@ public class ServiceLoaderTestClassLoader extends URLClassLoader {
     }
 
     /**
-     * Constructs a fake META-INF/services/<metaInfInterface> file which
+     * Constructs a fake META-INF/services/&lt;metaInfInterface&gt; file which
      * contains the provided array of classes. When the implementingClasses
      * array is null, the META-INF file will not be constructed. The classes
      * from implementingClasses are not required to implement the

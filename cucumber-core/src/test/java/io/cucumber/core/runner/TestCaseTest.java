@@ -1,13 +1,20 @@
 package io.cucumber.core.runner;
 
-import io.cucumber.core.backend.*;
+import io.cucumber.core.backend.CucumberBackendException;
+import io.cucumber.core.backend.CucumberInvocationTargetException;
+import io.cucumber.core.backend.HookDefinition;
+import io.cucumber.core.backend.ParameterInfo;
 import io.cucumber.core.backend.StepDefinition;
 import io.cucumber.core.eventbus.EventBus;
 import io.cucumber.core.feature.TestFeatureParser;
 import io.cucumber.core.gherkin.Feature;
 import io.cucumber.core.gherkin.Pickle;
-import io.cucumber.plugin.event.*;
+import io.cucumber.plugin.event.EventHandler;
 import io.cucumber.plugin.event.Status;
+import io.cucumber.plugin.event.TestCaseFinished;
+import io.cucumber.plugin.event.TestCaseStarted;
+import io.cucumber.plugin.event.TestStepFinished;
+import io.cucumber.plugin.event.TestStepStarted;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -22,7 +29,7 @@ import static io.cucumber.plugin.event.HookType.AFTER_STEP;
 import static io.cucumber.plugin.event.HookType.BEFORE_STEP;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestCaseTest {
     private final Feature feature = TestFeatureParser.parse("" +
