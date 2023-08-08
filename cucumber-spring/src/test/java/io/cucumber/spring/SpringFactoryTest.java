@@ -411,7 +411,4 @@ class SpringFactoryTest {
         }
     }
 
-    public static class StubException extends Exception {
-
-    }
 }

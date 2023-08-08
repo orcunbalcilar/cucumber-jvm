@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-class Issue1970 {
+class Issue1970Test {
 
     @Test
     void issue1970() {

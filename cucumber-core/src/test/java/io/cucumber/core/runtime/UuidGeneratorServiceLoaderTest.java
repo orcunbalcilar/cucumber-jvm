@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * # Testcases for `UuidGeneratorServiceLoader`
- *
+ * <p>
  * <!-- @formatter:off -->
  * | #   | uuid-generator property   | Available services                                                                  | Result                                                                           |
  * |-----|---------------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Testcases for `ObjectFactoryServiceLoader`
- *
+ * <p>
  * <!-- @formatter:off -->
  * | # | object-factory property | Available services                                    | Result                                                                           |
  * |---|-------------------------|-------------------------------------------------------|----------------------------------------------------------------------------------|
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * | 8 | OtherFactory            | DefaultObjectFactory                                  | exception, class not found through SPI                                           |
  * | 9 | undefined               | OtherFactory                                          | OtherFactory used                                                                |
  * <!-- @formatter:on -->
- *
+ * <p>
  * Essentially this means that
  * * (2) Cucumber works by default
  * * (4) When adding a custom implementation to the class path it is used automatically
